@@ -60,7 +60,7 @@ function SearchBar({ initialValue = "", onSearch }: SearchBarProps) {
 
       <Button
         type="submit"
-        className="h-11 rounded-r-lg bg-gray-900 px-5 text-sm font-medium text-white hover:bg-gray-800"
+        className="h-11 rounded-r-lg bg-gray-900 px-5 text-sm font-medium text-white  hover:text-white hover:bg-gray-800"
       >
         Search
       </Button>
