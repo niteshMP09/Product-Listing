@@ -1,5 +1,10 @@
-import { useSearchParams, Link } from "react-router-dom";
-
+import { Link, useSearchParams } from "react-router-dom";
+import {
+  CartIcon,
+  CloseIcon,
+  HeartIcon,
+  MenuIcon,
+} from "../Icons";
 import {
   createFilterUrl,
   navigationItems,
@@ -35,7 +40,6 @@ function MobileHeader({
   return (
     <>
       <div className="flex h-16 items-center justify-between md:hidden">
-        {/* Logo */}
         <Link
           to="/"
           onClick={onNavigation}
@@ -45,9 +49,7 @@ function MobileHeader({
           Product Store
         </Link>
 
-        {/* Actions */}
         <div className="flex items-center gap-1">
-          {/* Wishlist */}
           <button
             type="button"
             aria-label={`Wishlist${
@@ -55,22 +57,9 @@ function MobileHeader({
                 ? `, ${wishlistCount} items`
                 : ""
             }`}
-            className="relative flex h-10 w-10 items-center justify-center rounded-full text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
+            className="relative flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
           >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              className="h-5 w-5"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"
-              />
-            </svg>
+            <HeartIcon />
 
             {wishlistCount > 0 && (
               <span className="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gray-900 px-1 text-[10px] font-semibold text-white">
@@ -79,7 +68,6 @@ function MobileHeader({
             )}
           </button>
 
-          {/* Cart */}
           <button
             type="button"
             aria-label={`Shopping cart${
@@ -87,22 +75,9 @@ function MobileHeader({
                 ? `, ${cartCount} items`
                 : ""
             }`}
-            className="relative flex h-10 w-10 items-center justify-center rounded-full text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
+            className="relative flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
           >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              className="h-5 w-5"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13 5.4 5M7 13l-1.5 1.5A1 1 0 0 0 6.2 16H18M9 19.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm9 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"
-              />
-            </svg>
+            <CartIcon />
 
             {cartCount > 0 && (
               <span className="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gray-900 px-1 text-[10px] font-semibold text-white">
@@ -111,7 +86,6 @@ function MobileHeader({
             )}
           </button>
 
-          {/* Menu */}
           <button
             type="button"
             aria-label={
@@ -121,44 +95,17 @@ function MobileHeader({
             }
             aria-expanded={isOpen}
             onClick={onMenuToggle}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
           >
             {isOpen ? (
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                className="h-5 w-5"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 6l12 12M18 6 6 18"
-                />
-              </svg>
+              <CloseIcon />
             ) : (
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                className="h-5 w-5"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
+              <MenuIcon />
             )}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
       {isOpen && (
         <nav
           aria-label="Mobile navigation"
