@@ -12,6 +12,8 @@ const SEARCHSPRING_API_URL =
 export interface SearchProductsParams {
   q?: string;
   page?: number;
+  sort?: string;
+  filters?: Record<string, string[]>;
 }
 
 export async function searchProducts(
@@ -25,6 +27,30 @@ export async function searchProducts(
 
   if (params.q?.trim()) {
     searchParams.set("q", params.q.trim());
+  }
+
+  if (params.sort) {
+    const [field, direction] = params.sort.split(":");
+
+    if (field && direction) {
+      searchParams.set(
+        `sort.${field}`,
+        direction,
+      );
+    }
+  }
+
+  if (params.filters) {
+    Object.entries(params.filters).forEach(
+      ([field, values]) => {
+        values.forEach((value) => {
+          searchParams.append(
+            `filter.${field}`,
+            value,
+          );
+        });
+      },
+    );
   }
 
   const response = await fetch(

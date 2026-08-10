@@ -8,26 +8,37 @@ import SortDropdown from "../components/SortDropdown/SortDropdown";
 import Pagination from "../components/Pagination/Pagination";
 
 import { useProducts } from "../hooks/useProducts";
+import type { SelectedFilters } from "../types/searchspring";
+import ActiveFilters from "../components/ActiveFilters/ActiveFilters";
 
 function ProductListingPage() {
-  const [searchParams, setSearchParams] =
-    useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const query =
-    searchParams.get("q") ?? "";
+  const query = searchParams.get("q") ?? "";
 
-  const page = Number(
-    searchParams.get("page") ?? "1",
-  );
+  const page = Number(searchParams.get("page") ?? "1");
 
-  const {
-    data,
-    isLoading,
-    isError,
-    error,
-  } = useProducts({
+  const sort = searchParams.get("sort") ?? "";
+
+  const selectedFilters: SelectedFilters = {};
+
+  searchParams.forEach((value, key) => {
+    if (key.startsWith("filter.")) {
+      const field = key.replace("filter.", "");
+
+      if (!selectedFilters[field]) {
+        selectedFilters[field] = [];
+      }
+
+      selectedFilters[field].push(value);
+    }
+  });
+
+  const { data, isLoading, isError, error } = useProducts({
     q: query,
     page,
+    sort,
+    filters: selectedFilters,
   });
 
   const handleSearch = (newQuery: string) => {
@@ -43,9 +54,7 @@ function ProductListingPage() {
   };
 
   const handlePageChange = (newPage: number) => {
-    const params = new URLSearchParams(
-      searchParams,
-    );
+    const params = new URLSearchParams(searchParams);
 
     params.set("page", String(newPage));
 
@@ -57,27 +66,75 @@ function ProductListingPage() {
     });
   };
 
-  const handleSortChange = (value: string) => {
-    const params = new URLSearchParams(
-      searchParams,
-    );
+  const handleSortChange = (newSort: string) => {
+    const params = new URLSearchParams(searchParams);
 
-    params.set("sort", value);
+    params.set("sort", newSort);
+
+    // Sorting should start from page 1.
     params.set("page", "1");
 
     setSearchParams(params);
   };
 
-  const handleFacetSelect = (
-    field: string,
-    value: string,
-  ) => {
-    console.log("Facet selected:", {
-      field,
-      value,
+  const handleFacetSelect = (field: string, value: string) => {
+    const params = new URLSearchParams(searchParams);
+
+    const filterKey = `filter.${field}`;
+
+    const currentValues = params.getAll(filterKey);
+
+    const valueExists = currentValues.includes(value);
+
+    if (valueExists) {
+      params.delete(filterKey);
+
+      currentValues
+        .filter((currentValue) => currentValue !== value)
+        .forEach((currentValue) => {
+          params.append(filterKey, currentValue);
+        });
+    } else {
+      params.append(filterKey, value);
+    }
+
+    params.set("page", "1");
+
+    setSearchParams(params);
+  };
+
+  const handleRemoveFilter = (field: string, value: string) => {
+    const params = new URLSearchParams(searchParams);
+
+    const filterKey = `filter.${field}`;
+
+    const values = params
+      .getAll(filterKey)
+      .filter((currentValue) => currentValue !== value);
+
+    params.delete(filterKey);
+
+    values.forEach((currentValue) => {
+      params.append(filterKey, currentValue);
     });
 
-    // We'll connect this to the API next.
+    params.set("page", "1");
+
+    setSearchParams(params);
+  };
+
+  const handleClearAllFilters = () => {
+    const params = new URLSearchParams(searchParams);
+
+    Array.from(params.keys()).forEach((key) => {
+      if (key.startsWith("filter.")) {
+        params.delete(key);
+      }
+    });
+
+    params.set("page", "1");
+
+    setSearchParams(params);
   };
 
   if (isError) {
@@ -86,9 +143,7 @@ function ProductListingPage() {
         <Header />
 
         <main className="mx-auto max-w-[1440px] px-4 py-16 text-center">
-          <h1 className="text-2xl font-semibold">
-            Something went wrong
-          </h1>
+          <h1 className="text-2xl font-semibold">Something went wrong</h1>
 
           <p className="mt-2 text-gray-500">
             {error instanceof Error
@@ -99,7 +154,7 @@ function ProductListingPage() {
           <button
             type="button"
             onClick={() => window.location.reload()}
-            className="mt-6 rounded-lg bg-gray-900 px-5 py-2.5 text-sm font-medium text-white"
+            className="mt-6 rounded-lg bg-gray-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-800"
           >
             Retry
           </button>
@@ -115,30 +170,22 @@ function ProductListingPage() {
       <main className="mx-auto max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8">
         {/* Search */}
         <div className="mx-auto mb-8 max-w-2xl">
-          <SearchBar
-            initialValue={query}
-            onSearch={handleSearch}
-          />
+          <SearchBar initialValue={query} onSearch={handleSearch} />
         </div>
 
         {/* Page heading */}
         <div className="mb-6">
-          <p className="mb-2 text-sm text-gray-500">
-            Home / Products
-          </p>
+          <p className="mb-2 text-sm text-gray-500">Home / Products</p>
 
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-                {query
-                  ? `Search results for "${query}"`
-                  : "All Products"}
+                {query ? `Search results for "${query}"` : "All Products"}
               </h1>
 
               {data && (
                 <p className="mt-1 text-sm text-gray-500">
-                  {data.pagination.totalResults.toLocaleString()}{" "}
-                  products
+                  {data.pagination.totalResults.toLocaleString()} products
                 </p>
               )}
             </div>
@@ -146,27 +193,27 @@ function ProductListingPage() {
             {data && (
               <SortDropdown
                 options={data.sorting.options}
-                value={
-                  searchParams.get("sort") ??
-                  `${data.sorting.options[0]?.field}:${data.sorting.options[0]?.direction}`
-                }
+                value={sort}
                 onChange={handleSortChange}
               />
             )}
           </div>
         </div>
-
+        <ActiveFilters
+          facets={data?.facets ?? []}
+          onRemove={handleRemoveFilter}
+          onClearAll={handleClearAllFilters}
+        />
         {/* Main PLP */}
         <div className="grid gap-8 lg:grid-cols-[240px_minmax(0,1fr)]">
-          {/* Filters */}
           {data && (
             <FilterSidebar
               facets={data.facets}
+              selectedFilters={selectedFilters}
               onSelect={handleFacetSelect}
             />
           )}
 
-          {/* Products */}
           <section className="min-w-0">
             {data && (
               <div className="mb-6">
@@ -182,17 +229,13 @@ function ProductListingPage() {
                 Loading products...
               </div>
             ) : data?.results.length ? (
-              <ProductGrid
-                products={data.results}
-              />
+              <ProductGrid products={data.results} />
             ) : (
               <div className="py-20 text-center">
-                <h2 className="text-xl font-semibold">
-                  No products found
-                </h2>
+                <h2 className="text-xl font-semibold">No products found</h2>
 
                 <p className="mt-2 text-sm text-gray-500">
-                  Try another search.
+                  Try another search or remove some filters.
                 </p>
               </div>
             )}

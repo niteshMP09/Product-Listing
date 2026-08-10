@@ -7,7 +7,9 @@ import {
 export function useProducts(params: SearchProductsParams) {
   return useQuery({
     queryKey: ["products", params],
+
     queryFn: () => searchProducts(params),
+
     placeholderData: (previousData) => previousData,
   });
 }
