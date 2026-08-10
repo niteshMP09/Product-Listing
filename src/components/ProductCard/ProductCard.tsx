@@ -15,12 +15,11 @@ function ProductCard({ product }: ProductCardProps) {
 
   return (
     <article className="group">
-      {/* Image */}
       <a
         href={product.url}
         className="relative block overflow-hidden bg-gray-100"
       >
-        <div className="aspect-[3/4]">
+        <div className="aspect-3/4">
           {imageError ? (
             <div className="flex h-full w-full items-center justify-center bg-gray-100 px-4 text-center text-sm text-gray-400">
               Image unavailable
@@ -37,7 +36,6 @@ function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
 
-        {/* Badges */}
         {product.badges?.length ? (
           <div className="absolute left-3 top-3 flex flex-wrap gap-2">
             {product.badges.slice(0, 2).map((badge) => (
@@ -52,7 +50,6 @@ function ProductCard({ product }: ProductCardProps) {
         ) : null}
       </a>
 
-      {/* Product information */}
       <div className="pt-3">
         <p className="mb-1 text-xs text-gray-500">{product.brand}</p>
 
@@ -60,7 +57,6 @@ function ProductCard({ product }: ProductCardProps) {
           {product.name}
         </h2>
 
-        {/* Price */}
         <div className="mt-2 flex items-center gap-2">
           <span className="text-sm font-semibold text-gray-900">
             ${price.toFixed(2)}
@@ -73,7 +69,6 @@ function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
 
-        {/* Rating */}
         {product.rating && (
           <div className="mt-2 flex items-center gap-1 text-xs text-gray-500">
             <span aria-hidden="true">★</span>
