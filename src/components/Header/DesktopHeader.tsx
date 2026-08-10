@@ -7,7 +7,7 @@ import {
   createFilterUrl,
   navigationItems,
 } from "./navigation";
-
+import NavigationLink from "../common/AppLink/AppLink";
 interface DesktopHeaderProps {
   cartCount: number;
   wishlistCount: number;
@@ -44,22 +44,18 @@ function DesktopHeader({
         className="flex items-center gap-6"
       >
         {navigationItems.map((item) => (
-          <Link
+          <NavigationLink
             key={item.label}
             to={createFilterUrl(
               item.filterField,
               item.filterValue,
             )}
-            className={`text-sm font-medium transition ${
-              isCategoryActive(
-                item.filterValue,
-              )
-                ? "text-gray-900"
-                : "text-gray-600 hover:text-gray-900"
-            }`}
+            isActive={isCategoryActive(
+              item.filterValue,
+            )}
           >
             {item.label}
-          </Link>
+          </NavigationLink>
         ))}
       </nav>
       <div className="flex items-center gap-1">
@@ -80,8 +76,6 @@ function DesktopHeader({
             </span>
           )}
         </button>
-
-        {/* Cart */}
         <button
           type="button"
           aria-label={`Shopping cart${

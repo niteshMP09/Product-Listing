@@ -1,15 +1,7 @@
 import { Link, useSearchParams } from "react-router-dom";
-import {
-  CartIcon,
-  CloseIcon,
-  HeartIcon,
-  MenuIcon,
-} from "../Icons";
-import {
-  createFilterUrl,
-  navigationItems,
-} from "./navigation";
-
+import { CartIcon, CloseIcon, HeartIcon, MenuIcon } from "../Icons";
+import { createFilterUrl, navigationItems } from "./navigation";
+import NavigationLink from "../common/AppLink/AppLink";
 interface MobileHeaderProps {
   isOpen: boolean;
   cartCount: number;
@@ -27,14 +19,8 @@ function MobileHeader({
 }: MobileHeaderProps) {
   const [searchParams] = useSearchParams();
 
-  const isCategoryActive = (
-    value: string,
-  ) => {
-    return (
-      searchParams.get(
-        "filter.ss_category_hierarchy",
-      ) === value
-    );
+  const isCategoryActive = (value: string) => {
+    return searchParams.get("filter.ss_category_hierarchy") === value;
   };
 
   return (
@@ -53,9 +39,7 @@ function MobileHeader({
           <button
             type="button"
             aria-label={`Wishlist${
-              wishlistCount
-                ? `, ${wishlistCount} items`
-                : ""
+              wishlistCount ? `, ${wishlistCount} items` : ""
             }`}
             className="relative flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
           >
@@ -71,9 +55,7 @@ function MobileHeader({
           <button
             type="button"
             aria-label={`Shopping cart${
-              cartCount
-                ? `, ${cartCount} items`
-                : ""
+              cartCount ? `, ${cartCount} items` : ""
             }`}
             className="relative flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
           >
@@ -89,19 +71,13 @@ function MobileHeader({
           <button
             type="button"
             aria-label={
-              isOpen
-                ? "Close navigation menu"
-                : "Open navigation menu"
+              isOpen ? "Close navigation menu" : "Open navigation menu"
             }
             aria-expanded={isOpen}
             onClick={onMenuToggle}
             className="flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
           >
-            {isOpen ? (
-              <CloseIcon />
-            ) : (
-              <MenuIcon />
-            )}
+            {isOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
         </div>
       </div>
@@ -113,23 +89,15 @@ function MobileHeader({
         >
           <div className="space-y-1">
             {navigationItems.map((item) => (
-              <Link
+              <NavigationLink
                 key={item.label}
-                to={createFilterUrl(
-                  item.filterField,
-                  item.filterValue,
-                )}
+                to={createFilterUrl(item.filterField, item.filterValue)}
                 onClick={onNavigation}
-                className={`block rounded-lg px-3 py-3 text-sm font-medium transition ${
-                  isCategoryActive(
-                    item.filterValue,
-                  )
-                    ? "bg-gray-100 text-gray-900"
-                    : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                }`}
+                isActive={isCategoryActive(item.filterValue)}
+                mobile
               >
                 {item.label}
-              </Link>
+              </NavigationLink>
             ))}
           </div>
         </nav>
