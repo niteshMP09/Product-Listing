@@ -1,5 +1,8 @@
 import { useState } from "react";
 import type { SubmitEvent } from "react";
+
+import Button from "../common/Button/Button";
+
 interface SearchBarProps {
   initialValue?: string;
   onSearch: (query: string) => void;
@@ -9,9 +12,12 @@ function SearchBar({
   initialValue = "",
   onSearch,
 }: SearchBarProps) {
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] =
+    useState(initialValue);
 
-  const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = (
+    event: SubmitEvent,
+  ) => {
     event.preventDefault();
 
     onSearch(value.trim());
@@ -21,34 +27,34 @@ function SearchBar({
     <form
       onSubmit={handleSubmit}
       role="search"
-      className="w-full"
+      aria-label="Product search"
+      className="flex w-full"
     >
-      <div className="flex w-full">
-        <label
-          htmlFor="product-search"
-          className="sr-only"
-        >
-          Search products
-        </label>
+      <label
+        htmlFor="product-search"
+        className="sr-only"
+      >
+        Search products
+      </label>
 
-        <input
-          id="product-search"
-          type="search"
-          value={value}
-          onChange={(event) =>
-            setValue(event.target.value)
-          }
-          placeholder="Search products..."
-          className="h-11 min-w-0 flex-1 rounded-l-lg border border-r-0 border-gray-300 px-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
-        />
+      <input
+        id="product-search"
+        type="search"
+        value={value}
+        onChange={(event) =>
+          setValue(event.target.value)
+        }
+        placeholder="Search products..."
+        autoComplete="off"
+        className="h-11 min-w-0 flex-1 rounded-l-lg border border-r-0 border-gray-300 px-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+      />
 
-        <button
-          type="submit"
-          className="h-11 rounded-r-lg bg-gray-900 px-5 text-sm font-medium text-white transition hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
-        >
-          Search
-        </button>
-      </div>
+      <Button
+        type="submit"
+        className="h-11 rounded-r-lg bg-gray-900 px-5 text-sm font-medium text-white hover:bg-gray-800"
+      >
+        Search
+      </Button>
     </form>
   );
 }
