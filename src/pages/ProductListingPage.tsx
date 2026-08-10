@@ -14,24 +14,19 @@ import ProductToolbar from "../components/ProductToolbar/ProductToolbar";
 
 import { useProducts } from "../hooks/useProducts";
 import useProductFilters from "../hooks/useProductFilters";
+import useProductSorting from "../hooks/useProductSorting";
 
 function ProductListingPage() {
   const [searchParams, setSearchParams] =
     useSearchParams();
-
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] =
     useState(false);
-
   const [isMobileSortOpen, setIsMobileSortOpen] =
     useState(false);
-
   const query = searchParams.get("q") ?? "";
-
   const page = Number(
     searchParams.get("page") ?? "1",
   );
-
-  const sort = searchParams.get("sort") ?? "";
 
 const {
   selectedFilters,
@@ -39,6 +34,11 @@ const {
   handleRemoveFilter,
   handleClearAllFilters,
 } = useProductFilters();
+
+const {
+  sort,
+  handleSortChange,
+} = useProductSorting();
 
 const {
   data,
@@ -70,9 +70,6 @@ const {
     setSearchParams(params);
   };
 
-  /*
-   * Pagination
-   */
   const handlePageChange = (
     newPage: number,
   ) => {
@@ -91,24 +88,6 @@ const {
       top: 0,
       behavior: "smooth",
     });
-  };
-
-  /*
-   * Sorting
-   */
-  const handleSortChange = (
-    newSort: string,
-  ) => {
-    const params = new URLSearchParams(
-      searchParams,
-    );
-
-    params.set("sort", newSort);
-
-    // Reset pagination when sorting changes.
-    params.set("page", "1");
-
-    setSearchParams(params);
   };
 
   const handleMobileSortChange = (
