@@ -1,5 +1,4 @@
 import { Link, useSearchParams } from "react-router-dom";
-
 import {
   createFilterUrl,
   navigationItems,
