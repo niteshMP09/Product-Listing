@@ -205,6 +205,7 @@ Example:
 
 ```env
 VITE_SEARCHSPRING_SITE_ID=scmq7n
+VITE_SEARCHSPRING_RESULTS_FORMAT=native
 ```
 
 > `.env` is intentionally excluded from version control.
@@ -284,7 +285,7 @@ npm run preview
 _Add the deployed application URL here._
 
 ```text
-https://your-deployment-url.com
+https://product-listing-nu-two.vercel.app/
 ```
 
 ### Repository
@@ -292,7 +293,7 @@ https://your-deployment-url.com
 _Add the GitHub repository URL here._
 
 ```text
-https://github.com/<username>/<repository>
+https://github.com/niteshMP09/Product-Listing
 ```
 
 
