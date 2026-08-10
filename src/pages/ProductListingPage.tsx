@@ -1,22 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-
-import Header from "../components/Header/Header";
-import SearchBar from "../components/SearchBar/SearchBar";
-import ProductGrid from "../components/ProductGrid/ProductGrid";
-import ProductGridSkeleton from "../components/ProductGrid/ProductGridSkeleton";
-import FilterSidebar from "../components/FilterSidebar/FilterSidebar";
-import SortDropdown from "../components/SortDropdown/SortDropdown";
-import Pagination from "../components/Pagination/Pagination";
-import ActiveFilters from "../components/ActiveFilters/ActiveFilters";
-import MobileFilterDrawer from "../components/MobileFilterDrawer/MobileFilterDrawer";
-import ProductToolbar from "../components/ProductToolbar/ProductToolbar";
-
-import { useProducts } from "../hooks/useProducts";
-import useProductFilters from "../hooks/useProductFilters";
-import useProductSorting from "../hooks/useProductSorting";
-import ProductErrorState from "../components/ProductErrorState/ProductErrorState";
-import MobileSort from "../components/MobileSort/MobileSort";
+import { useProductFilters, useProducts, useProductSorting } from "../hooks";
+import { ActiveFilters, FilterSidebar, Header, MobileFilterDrawer, MobileSort, Pagination, ProductErrorState, ProductGrid, ProductGridSkeleton, ProductToolbar, SearchBar, SortDropdown } from "../components";
 
 function ProductListingPage() {
   const [searchParams, setSearchParams] = useSearchParams();
