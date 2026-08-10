@@ -1,4 +1,4 @@
-import Skeleton from "../common/Skeleton";
+import Skeleton from "../common/Skeleton/Skeleton";
 
 function ProductCardSkeleton() {
   return (
