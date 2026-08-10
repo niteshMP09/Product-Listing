@@ -25,7 +25,7 @@ function FilterSidebar({
             </h2>
           </div>
 
-          <div className="max-h-[calc(70vh-10rem)] overflow-y-auto p-4">
+          <div className="max-h-[calc(90vh-10rem)] overflow-y-auto p-4">
             <div>
               {facets.map((facet) => (
                 <FilterSection
