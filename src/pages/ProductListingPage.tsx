@@ -424,19 +424,6 @@ function ProductListingPage() {
             className="min-w-0"
             aria-live="polite"
           >
-            {/* Top pagination */}
-            {data && (
-              <div className="mb-6">
-                <Pagination
-                  pagination={
-                    data.pagination
-                  }
-                  onPageChange={
-                    handlePageChange
-                  }
-                />
-              </div>
-            )}
 
             {/* Background fetching indicator */}
             {isFetching &&
