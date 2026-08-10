@@ -13,7 +13,7 @@ import MobileFilterDrawer from "../components/MobileFilterDrawer/MobileFilterDra
 import ProductToolbar from "../components/ProductToolbar/ProductToolbar";
 
 import { useProducts } from "../hooks/useProducts";
-import type { SelectedFilters } from "../types/searchspring";
+import useProductFilters from "../hooks/useProductFilters";
 
 function ProductListingPage() {
   const [searchParams, setSearchParams] =
@@ -33,48 +33,27 @@ function ProductListingPage() {
 
   const sort = searchParams.get("sort") ?? "";
 
-  /*
-   * Build selected filters from URL.
-   *
-   * Example:
-   * ?filter.brand=Nike&filter.brand=Adidas
-   *
-   * becomes:
-   * {
-   *   brand: ["Nike", "Adidas"]
-   * }
-   */
-  const selectedFilters: SelectedFilters = {};
+const {
+  selectedFilters,
+  handleFacetSelect,
+  handleRemoveFilter,
+  handleClearAllFilters,
+} = useProductFilters();
 
-  searchParams.forEach((value, key) => {
-    if (key.startsWith("filter.")) {
-      const field = key.replace("filter.", "");
+const {
+  data,
+  isLoading,
+  isFetching,
+  isError,
+  error,
+  refetch,
+} = useProducts({
+  q: query,
+  page,
+  sort,
+  filters: selectedFilters,
+});
 
-      if (!selectedFilters[field]) {
-        selectedFilters[field] = [];
-      }
-
-      selectedFilters[field].push(value);
-    }
-  });
-
-  const {
-    data,
-    isLoading,
-    isFetching,
-    isError,
-    error,
-    refetch,
-  } = useProducts({
-    q: query,
-    page,
-    sort,
-    filters: selectedFilters,
-  });
-
-  /*
-   * Search
-   */
   const handleSearch = (newQuery: string) => {
     const params = new URLSearchParams(
       searchParams,
@@ -139,115 +118,12 @@ function ProductListingPage() {
     setIsMobileSortOpen(false);
   };
 
-  /*
-   * Add / remove facet
-   */
-  const handleFacetSelect = (
-    field: string,
-    value: string,
-  ) => {
-    const params = new URLSearchParams(
-      searchParams,
-    );
-
-    const filterKey = `filter.${field}`;
-
-    const currentValues =
-      params.getAll(filterKey);
-
-    const valueExists =
-      currentValues.includes(value);
-
-    if (valueExists) {
-      params.delete(filterKey);
-
-      currentValues
-        .filter(
-          (currentValue) =>
-            currentValue !== value,
-        )
-        .forEach((currentValue) => {
-          params.append(
-            filterKey,
-            currentValue,
-          );
-        });
-    } else {
-      params.append(
-        filterKey,
-        value,
-      );
-    }
-
-    params.set("page", "1");
-
-    setSearchParams(params);
-  };
-
-  /*
-   * Remove one active filter
-   */
-  const handleRemoveFilter = (
-    field: string,
-    value: string,
-  ) => {
-    const params = new URLSearchParams(
-      searchParams,
-    );
-
-    const filterKey = `filter.${field}`;
-
-    const values = params
-      .getAll(filterKey)
-      .filter(
-        (currentValue) =>
-          currentValue !== value,
-      );
-
-    params.delete(filterKey);
-
-    values.forEach((currentValue) => {
-      params.append(
-        filterKey,
-        currentValue,
-      );
-    });
-
-    params.set("page", "1");
-
-    setSearchParams(params);
-  };
-
-  /*
-   * Clear all filters
-   */
-  const handleClearAllFilters = () => {
-    const params = new URLSearchParams(
-      searchParams,
-    );
-
-    Array.from(params.keys()).forEach(
-      (key) => {
-        if (key.startsWith("filter.")) {
-          params.delete(key);
-        }
-      },
-    );
-
-    params.set("page", "1");
-
-    setSearchParams(params);
-  };
-
-  /*
-   * Error state
-   */
   if (isError) {
     return (
       <div className="min-h-screen bg-white text-gray-900">
         <Header />
 
-        <main className="mx-auto flex min-h-[70vh] max-w-[1440px] flex-col items-center justify-center px-4 py-16 text-center sm:px-6 lg:px-8">
+        <main className="mx-auto flex min-h-[70vh] max-w-360 flex-col items-center justify-center px-4 py-16 text-center sm:px-6 lg:px-8">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-50">
             <span
               aria-hidden="true"
@@ -283,7 +159,7 @@ function ProductListingPage() {
     <div className="min-h-screen bg-white text-gray-900">
       <Header />
 
-      <main className="mx-auto max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8">
+      <main className="mx-auto max-w-360 px-4 py-6 sm:px-6 lg:px-8">
         {/* Search */}
         <div className="mx-auto mb-8 max-w-2xl">
           <SearchBar
@@ -452,7 +328,7 @@ function ProductListingPage() {
               />
             ) : (
               /* Empty state */
-              <div className="flex min-h-[400px] flex-col items-center justify-center px-4 text-center">
+              <div className="flex min-h-100 flex-col items-center justify-center px-4 text-center">
                 <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
                   <span
                     aria-hidden="true"
