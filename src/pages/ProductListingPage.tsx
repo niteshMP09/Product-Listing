@@ -15,6 +15,7 @@ import ProductToolbar from "../components/ProductToolbar/ProductToolbar";
 import { useProducts } from "../hooks/useProducts";
 import useProductFilters from "../hooks/useProductFilters";
 import useProductSorting from "../hooks/useProductSorting";
+import ProductErrorState from "../components/ProductErrorState/ProductErrorState";
 
 function ProductListingPage() {
   const [searchParams, setSearchParams] =
@@ -97,42 +98,18 @@ const {
     setIsMobileSortOpen(false);
   };
 
-  if (isError) {
-    return (
-      <div className="min-h-screen bg-white text-gray-900">
-        <Header />
+if (isError) {
+  return (
+    <div className="min-h-screen bg-white text-gray-900">
+      <Header />
 
-        <main className="mx-auto flex min-h-[70vh] max-w-360 flex-col items-center justify-center px-4 py-16 text-center sm:px-6 lg:px-8">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-50">
-            <span
-              aria-hidden="true"
-              className="text-2xl"
-            >
-              !
-            </span>
-          </div>
-
-          <h1 className="mt-5 text-2xl font-semibold">
-            Something went wrong
-          </h1>
-
-          <p className="mt-2 max-w-md text-sm text-gray-500">
-            {error instanceof Error
-              ? error.message
-              : "Unable to load products. Please try again."}
-          </p>
-
-          <button
-            type="button"
-            onClick={() => refetch()}
-            className="mt-6 rounded-lg bg-gray-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
-          >
-            Try again
-          </button>
-        </main>
-      </div>
-    );
-  }
+      <ProductErrorState
+        error={error}
+        onRetry={refetch}
+      />
+    </div>
+  );
+}
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
