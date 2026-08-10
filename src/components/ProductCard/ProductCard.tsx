@@ -1,19 +1,17 @@
+import { useState } from "react";
 import type { Product } from "../../types/searchspring";
 
 interface ProductCardProps {
   product: Product;
 }
 
-function ProductCard({
-  product,
-}: ProductCardProps) {
+function ProductCard({ product }: ProductCardProps) {
+  const [imageError, setImageError] = useState(false);
   const price = Number(product.price);
   const msrp = Number(product.msrp);
 
   const hasDiscount =
-    Number.isFinite(msrp) &&
-    Number.isFinite(price) &&
-    msrp > price;
+    Number.isFinite(msrp) && Number.isFinite(price) && msrp > price;
 
   return (
     <article className="group">
@@ -23,12 +21,20 @@ function ProductCard({
         className="relative block overflow-hidden bg-gray-100"
       >
         <div className="aspect-[3/4]">
-          <img
-            src={product.thumbnailImageUrl}
-            alt={product.name}
-            loading="lazy"
-            className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-          />
+          {imageError ? (
+            <div className="flex h-full w-full items-center justify-center bg-gray-100 px-4 text-center text-sm text-gray-400">
+              Image unavailable
+            </div>
+          ) : (
+            <img
+              src={product.thumbnailImageUrl}
+              alt={product.name}
+              loading="lazy"
+              decoding="async"
+              onError={() => setImageError(true)}
+              className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+            />
+          )}
         </div>
 
         {/* Badges */}
@@ -48,9 +54,7 @@ function ProductCard({
 
       {/* Product information */}
       <div className="pt-3">
-        <p className="mb-1 text-xs text-gray-500">
-          {product.brand}
-        </p>
+        <p className="mb-1 text-xs text-gray-500">{product.brand}</p>
 
         <h2 className="line-clamp-2 text-sm font-medium text-gray-900">
           {product.name}
@@ -77,9 +81,7 @@ function ProductCard({
             <span>
               {product.rating}
 
-              {product.ratingCount
-                ? ` (${product.ratingCount})`
-                : ""}
+              {product.ratingCount ? ` (${product.ratingCount})` : ""}
             </span>
           </div>
         )}
