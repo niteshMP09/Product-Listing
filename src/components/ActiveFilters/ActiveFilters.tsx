@@ -1,4 +1,5 @@
 import type { Facet } from "../../types/searchspring";
+import Button from "../common/Button/Button";
 
 interface ActiveFiltersProps {
   facets: Facet[];
@@ -11,17 +12,18 @@ function ActiveFilters({
   onRemove,
   onClearAll,
 }: ActiveFiltersProps) {
-  const activeFilters = facets.flatMap((facet) =>
-    facet.values
-      .filter((value) => value.active)
-      .map((value) => ({
-        field: facet.field,
-        fieldLabel: facet.label,
-        value:
-          value.value ??
-          `${value.low ?? ""}-${value.high ?? ""}`,
-        label: value.label,
-      })),
+  const activeFilters = facets.flatMap(
+    (facet) =>
+      facet.values
+        .filter((value) => value.active)
+        .map((value) => ({
+          field: facet.field,
+          fieldLabel: facet.label,
+          value:
+            value.value ??
+            `${value.low ?? ""}-${value.high ?? ""}`,
+          label: value.label,
+        })),
   );
 
   if (!activeFilters.length) {
@@ -30,12 +32,12 @@ function ActiveFilters({
 
   return (
     <div className="mb-6 flex flex-wrap items-center gap-2">
-      <span className="mr-1 text-sm font-medium text-gray-700">
+      <span className="mr-1 text-xs font-medium text-gray-500">
         Filters:
       </span>
 
       {activeFilters.map((filter) => (
-        <button
+        <Button
           key={`${filter.field}-${filter.value}`}
           type="button"
           onClick={() =>
@@ -44,7 +46,7 @@ function ActiveFilters({
               filter.value,
             )
           }
-          className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-gray-50 px-3 py-1.5 text-xs text-gray-700 transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-1"
+          className="inline-flex rounded-full border border-gray-300 bg-gray-50 px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-100"
           aria-label={`Remove ${filter.fieldLabel}: ${filter.label}`}
         >
           <span>
@@ -53,20 +55,20 @@ function ActiveFilters({
 
           <span
             aria-hidden="true"
-            className="text-gray-500"
+            className="ml-2 text-gray-500"
           >
             ×
           </span>
-        </button>
+        </Button>
       ))}
 
-      <button
+      <Button
         type="button"
         onClick={onClearAll}
-        className="ml-1 text-xs font-medium text-gray-900 underline underline-offset-2 hover:text-gray-600"
+        className="ml-1 px-2 py-1 text-xs font-medium text-gray-900 underline underline-offset-2 hover:text-gray-600"
       >
         Clear all
-      </button>
+      </Button>
     </div>
   );
 }
