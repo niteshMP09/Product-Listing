@@ -2,6 +2,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { CartIcon, CloseIcon, HeartIcon, MenuIcon } from "../Icons";
 import { createFilterUrl, navigationItems } from "./navigation";
 import NavigationLink from "../common/AppLink/AppLink";
+import Button from "../common/Button/Button";
 interface MobileHeaderProps {
   isOpen: boolean;
   cartCount: number;
@@ -34,51 +35,47 @@ function MobileHeader({
         >
           Product Store
         </Link>
-
         <div className="flex items-center gap-1">
-          <button
+          <Button
             type="button"
             aria-label={`Wishlist${
               wishlistCount ? `, ${wishlistCount} items` : ""
             }`}
-            className="relative flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
           >
             <HeartIcon />
-
             {wishlistCount > 0 && (
               <span className="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gray-900 px-1 text-[10px] font-semibold text-white">
                 {wishlistCount}
               </span>
             )}
-          </button>
-
-          <button
+          </Button>
+          <Button
             type="button"
+            variant="default"
+            size="md"
             aria-label={`Shopping cart${
               cartCount ? `, ${cartCount} items` : ""
             }`}
-            className="relative flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
           >
             <CartIcon />
-
             {cartCount > 0 && (
               <span className="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gray-900 px-1 text-[10px] font-semibold text-white">
                 {cartCount}
               </span>
             )}
-          </button>
-
-          <button
+          </Button>
+          <Button
             type="button"
+            variant="default"
+            size="md"
             aria-label={
               isOpen ? "Close navigation menu" : "Open navigation menu"
             }
             aria-expanded={isOpen}
             onClick={onMenuToggle}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
           >
             {isOpen ? <CloseIcon /> : <MenuIcon />}
-          </button>
+          </Button>
         </div>
       </div>
 
