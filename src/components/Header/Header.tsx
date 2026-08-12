@@ -20,8 +20,8 @@ function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur">
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-40 border-b border-gray-300 bg-white/95 backdrop-blur">
+      <div className="mx-auto max-w-360 px-4 sm:px-6 lg:px-8">
         <DesktopHeader
           cartCount={cartCount}
           wishlistCount={wishlistCount}

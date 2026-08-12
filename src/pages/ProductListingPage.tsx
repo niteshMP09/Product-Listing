@@ -46,9 +46,6 @@ function ProductListingPage() {
     filters: selectedFilters,
   });
 
-  /**
-   * Search
-   */
   const handleSearch = (newQuery: string) => {
     const params = new URLSearchParams(searchParams);
 
@@ -63,9 +60,6 @@ function ProductListingPage() {
     setSearchParams(params);
   };
 
-  /**
-   * Pagination
-   */
   const handlePageChange = (newPage: number) => {
     const params = new URLSearchParams(searchParams);
 
@@ -100,16 +94,13 @@ function ProductListingPage() {
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-white text-gray-900">
-      {/* Header */}
       <Header />
 
       <main className="mx-auto flex min-h-0 w-full max-w-360 flex-1 flex-col px-4 py-6 sm:px-6 lg:px-8">
-        {/* Search */}
-        <div className="mx-auto mb-8 w-full max-w-2xl shrink-0">
+        <div className="mx-auto mb-2 w-full max-w-2xl shrink-0">
           <SearchBar initialValue={query} onSearch={handleSearch} />
         </div>
 
-        {/* Page heading */}
         <div className="mb-6 shrink-0">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -124,7 +115,6 @@ function ProductListingPage() {
               )}
             </div>
 
-            {/* Desktop sorting */}
             {data && (
               <div className="hidden shrink-0 sm:block">
                 <SortDropdown
@@ -137,7 +127,6 @@ function ProductListingPage() {
           </div>
         </div>
 
-        {/* Mobile toolbar */}
         {data && (
           <div className="shrink-0">
             <ProductToolbar
@@ -148,7 +137,6 @@ function ProductListingPage() {
           </div>
         )}
 
-        {/* Mobile sort */}
         {data && isMobileSortOpen && (
           <div className="shrink-0">
             <MobileSort
@@ -159,7 +147,6 @@ function ProductListingPage() {
           </div>
         )}
 
-        {/* Active filters */}
         <div className="shrink-0">
           <ActiveFilters
             facets={data?.facets ?? []}
@@ -169,7 +156,6 @@ function ProductListingPage() {
         </div>
 
         <div className="grid min-h-0 flex-1 gap-8 lg:grid-cols-[240px_minmax(0,1fr)]">
-          {/* Desktop filter sidebar */}
           <aside className="hidden min-h-0 lg:block">
             <div className="h-full overflow-y-auto pr-2">
               {data ? (
@@ -184,13 +170,11 @@ function ProductListingPage() {
             </div>
           </aside>
 
-          {/* Product results */}
           <section
             id="product-results"
             className="min-h-0 min-w-0 overflow-y-auto pr-1"
             aria-live="polite"
           >
-            {/* Updating indicator */}
             {isFetching && !isLoading && (
               <div
                 role="status"
@@ -205,14 +189,12 @@ function ProductListingPage() {
               </div>
             )}
 
-            {/* Loading */}
             {isLoading ? (
               <ProductGridSkeleton count={20} />
             ) : data?.results.length ? (
               <>
                 <ProductGrid products={data.results} />
 
-                {/* Bottom pagination */}
                 <div className="mt-10 pb-6">
                   <Pagination
                     pagination={data.pagination}
@@ -221,7 +203,6 @@ function ProductListingPage() {
                 </div>
               </>
             ) : (
-              /* Empty state */
               <div className="flex min-h-100 flex-col items-center justify-center px-4 text-center">
                 <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
                   <span aria-hidden="true" className="text-2xl">
@@ -253,7 +234,6 @@ function ProductListingPage() {
         </div>
       </main>
 
-      {/* Mobile filter drawer */}
       <MobileFilterDrawer
         isOpen={isFilterDrawerOpen}
         facets={data?.facets ?? []}
