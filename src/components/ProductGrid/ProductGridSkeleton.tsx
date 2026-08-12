@@ -11,6 +11,7 @@ function ProductGridSkeleton({
     <div
       className="
         grid
+        min-w-0
         grid-cols-1
         gap-x-5
         gap-y-8

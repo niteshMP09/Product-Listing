@@ -14,7 +14,7 @@ function ProductCard({ product }: ProductCardProps) {
     Number.isFinite(msrp) && Number.isFinite(price) && msrp > price;
 
   return (
-    <article className="group">
+    <article className="group  min-w-0">
       <a
         href={product.url}
         className="relative block overflow-hidden bg-gray-100"

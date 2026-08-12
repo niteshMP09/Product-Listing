@@ -8,7 +8,7 @@ function Skeleton({
   return (
     <div
       aria-hidden="true"
-      className={`animate-pulse rounded-lg bg-gray-200 ${className}`}
+      className={`animate-pulse bg-gray-200 ${className}`}
     />
   );
 }

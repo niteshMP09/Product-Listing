@@ -1,7 +1,21 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useProductFilters, useProducts, useProductSorting } from "../hooks";
-import { ActiveFilters, FilterSidebar, Header, MobileFilterDrawer, MobileSort, Pagination, ProductErrorState, ProductGrid, ProductGridSkeleton, ProductToolbar, SearchBar, SortDropdown } from "../components";
+import {
+  ActiveFilters,
+  FilterSidebar,
+  FilterSidebarSkeleton,
+  Header,
+  MobileFilterDrawer,
+  MobileSort,
+  Pagination,
+  ProductErrorState,
+  ProductGrid,
+  ProductGridSkeleton,
+  ProductToolbar,
+  SearchBar,
+  SortDropdown,
+} from "../components";
 
 function ProductListingPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -128,13 +142,17 @@ function ProductListingPage() {
           onClearAll={handleClearAllFilters}
         />
         <div className="grid gap-8 lg:grid-cols-[240px_minmax(0,1fr)]">
-          {data && (
-            <FilterSidebar
-              facets={data.facets}
-              selectedFilters={selectedFilters}
-              onSelect={handleFacetSelect}
-            />
-          )}
+          <aside className="hidden lg:block">
+            {data ? (
+              <FilterSidebar
+                facets={data.facets}
+                selectedFilters={selectedFilters}
+                onSelect={handleFacetSelect}
+              />
+            ) : (
+              <FilterSidebarSkeleton />
+            )}
+          </aside>
           <section className="min-w-0" aria-live="polite">
             {isFetching && !isLoading && (
               <div
@@ -150,7 +168,7 @@ function ProductListingPage() {
             )}
 
             {isLoading ? (
-              <ProductGridSkeleton count={8} />
+              <ProductGridSkeleton count={20} />
             ) : data?.results.length ? (
               <ProductGrid products={data.results} />
             ) : (
