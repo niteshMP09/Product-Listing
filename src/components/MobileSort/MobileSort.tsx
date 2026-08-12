@@ -18,7 +18,11 @@ function MobileSort({
   onChange,
 }: MobileSortProps) {
   return (
-    <div className="mb-6 rounded-lg border border-gray-200 bg-white p-4 shadow-sm lg:hidden">
+    <div
+      role="group"
+      aria-label="Sort options"
+      className="mb-6 rounded-lg border border-gray-200 bg-white p-4 shadow-sm lg:hidden"
+    >
       <div className="mb-3 text-sm font-medium text-gray-900">
         Sort by
       </div>
@@ -34,6 +38,7 @@ function MobileSort({
             <Button
               key={optionValue}
               type="button"
+              aria-pressed={isSelected}
               onClick={() =>
                 onChange(optionValue)
               }

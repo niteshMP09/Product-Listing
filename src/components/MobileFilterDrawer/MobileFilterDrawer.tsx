@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import type { Facet } from "../../types/searchspring";
 import FilterSection from "../FilterSidebar/FilterSection";
 import Button from "../common/Button/Button";
@@ -23,6 +23,8 @@ function MobileFilterDrawer({
   onClose,
   onClearAll,
 }: MobileFilterDrawerProps) {
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+
   useEffect(() => {
     if (!isOpen) {
       return;
@@ -42,6 +44,7 @@ function MobileFilterDrawer({
     );
 
     document.body.style.overflow = "hidden";
+    closeButtonRef.current?.focus();
 
     return () => {
       document.removeEventListener(
@@ -69,6 +72,8 @@ function MobileFilterDrawer({
         className="absolute inset-0 h-full w-full cursor-default"
       />
       <aside
+        role="dialog"
+        aria-modal="true"
         aria-labelledby="mobile-filter-title"
         className="absolute right-0 top-0 flex h-full w-[min(90%,400px)] flex-col bg-white shadow-xl"
       >
@@ -81,6 +86,7 @@ function MobileFilterDrawer({
           </h2>
           <Button
             type="button"
+            ref={closeButtonRef}
             onClick={onClose}
             aria-label="Close filters"
             className="h-9 w-9 rounded-full p-0 text-xl text-gray-500 hover:bg-gray-100 hover:text-gray-900"

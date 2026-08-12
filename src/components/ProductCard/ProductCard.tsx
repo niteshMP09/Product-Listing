@@ -17,7 +17,7 @@ function ProductCard({ product }: ProductCardProps) {
     <article className="group  min-w-0">
       <a
         href={product.url}
-        className="relative block overflow-hidden bg-gray-100"
+        className="relative block overflow-hidden bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
       >
         <div className="aspect-3/4">
           {imageError ? (
