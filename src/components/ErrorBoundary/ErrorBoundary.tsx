@@ -54,7 +54,9 @@ class ErrorBoundary extends Component<
       );
     }
 
-    return this.props.children;
+    const { children } = this.props;
+
+    return children;
   }
 }
 
