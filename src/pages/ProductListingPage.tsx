@@ -74,7 +74,6 @@ function ProductListingPage() {
     });
   };
 
- 
   const handleMobileSortChange = (value: string) => {
     handleSortChange(value);
     setIsMobileSortOpen(false);
@@ -82,7 +81,7 @@ function ProductListingPage() {
 
   if (isError) {
     return (
-      <div className="flex h-screen flex-col overflow-hidden bg-white text-gray-900">
+      <div className="flex h-screen flex-col overflow-hidden bg-gray-50 text-gray-900">
         <Header />
 
         <main className="min-h-0 flex-1 overflow-y-auto">
@@ -93,23 +92,22 @@ function ProductListingPage() {
   }
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-white text-gray-900">
+    <div className="flex h-screen flex-col overflow-hidden bg-gray-50 text-gray-900">
       <Header />
-
       <main className="mx-auto flex min-h-0 w-full max-w-360 flex-1 flex-col px-4 py-6 sm:px-6 lg:px-8">
-        <div className="mx-auto mb-2 w-full max-w-2xl shrink-0">
+        <div className="mx-auto mb-3 w-full max-w-2xl shrink-0">
           <SearchBar initialValue={query} onSearch={handleSearch} />
         </div>
 
-        <div className="mb-6 shrink-0">
+        <div className="mb-5 shrink-0">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              <h1 className="text-2xl font-semibold tracking-tight text-gray-950 sm:text-3xl">
                 {query ? `Search results for "${query}"` : "All Products"}
               </h1>
 
               {data && (
-                <p className="mt-1 text-sm text-gray-500">
+                <p className="mt-1.5 text-sm text-gray-500">
                   {data.pagination.totalResults.toLocaleString()} products
                 </p>
               )}
@@ -128,7 +126,7 @@ function ProductListingPage() {
         </div>
 
         {data && (
-          <div className="shrink-0">
+          <div className="shrink-0 rounded-xl border border-gray-200 bg-white shadow-sm">
             <ProductToolbar
               totalResults={data.pagination.totalResults}
               onFilterClick={() => setIsFilterDrawerOpen(true)}
@@ -138,7 +136,7 @@ function ProductListingPage() {
         )}
 
         {data && isMobileSortOpen && (
-          <div className="shrink-0">
+          <div className="mt-2 shrink-0 rounded-xl border border-gray-200 bg-white p-3 shadow-sm">
             <MobileSort
               options={data.sorting.options}
               value={sort}
@@ -155,18 +153,20 @@ function ProductListingPage() {
           />
         </div>
 
-        <div className="grid min-h-0 flex-1 gap-8 lg:grid-cols-[240px_minmax(0,1fr)]">
+        <div className="mt-5 grid min-h-0 flex-1 gap-6 lg:grid-cols-[240px_minmax(0,1fr)]">
           <aside className="hidden min-h-0 lg:block">
             <div className="h-full overflow-y-auto pr-2">
-              {data ? (
-                <FilterSidebar
-                  facets={data.facets}
-                  selectedFilters={selectedFilters}
-                  onSelect={handleFacetSelect}
-                />
-              ) : (
-                <FilterSidebarSkeleton />
-              )}
+              <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
+                {data ? (
+                  <FilterSidebar
+                    facets={data.facets}
+                    selectedFilters={selectedFilters}
+                    onSelect={handleFacetSelect}
+                  />
+                ) : (
+                  <FilterSidebarSkeleton />
+                )}
+              </div>
             </div>
           </aside>
 
@@ -178,7 +178,7 @@ function ProductListingPage() {
             {isFetching && !isLoading && (
               <div
                 role="status"
-                className="mb-4 flex items-center justify-end gap-2 text-xs text-gray-500"
+                className="mb-4 flex items-center justify-end gap-2 text-xs font-medium text-gray-500"
               >
                 <span
                   aria-hidden="true"
@@ -190,12 +190,16 @@ function ProductListingPage() {
             )}
 
             {isLoading ? (
-              <ProductGridSkeleton count={20} />
+              <div className="rounded-xl bg-white p-4 sm:p-5">
+                <ProductGridSkeleton count={20} />
+              </div>
             ) : data?.results.length ? (
               <>
-                <ProductGrid products={data.results} />
+                <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm sm:p-5">
+                  <ProductGrid products={data.results} />
+                </div>
 
-                <div className="mt-10 pb-6">
+                <div className="mt-8 rounded-xl border border-gray-200 bg-white px-4 py-5 shadow-sm">
                   <Pagination
                     pagination={data.pagination}
                     onPageChange={handlePageChange}
@@ -203,9 +207,9 @@ function ProductListingPage() {
                 </div>
               </>
             ) : (
-              <div className="flex min-h-100 flex-col items-center justify-center px-4 text-center">
+              <div className="flex min-h-100 flex-col items-center justify-center rounded-xl border border-gray-200 bg-white px-4 text-center shadow-sm">
                 <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
-                  <span aria-hidden="true" className="text-2xl">
+                  <span aria-hidden="true" className="text-2xl text-gray-500">
                     🔍
                   </span>
                 </div>
@@ -214,7 +218,7 @@ function ProductListingPage() {
                   No products found
                 </h2>
 
-                <p className="mt-2 max-w-md text-sm text-gray-500">
+                <p className="mt-2 max-w-md text-sm leading-6 text-gray-500">
                   We couldn't find any products matching your search. Try a
                   different search or remove some filters.
                 </p>
@@ -233,7 +237,6 @@ function ProductListingPage() {
           </section>
         </div>
       </main>
-
       <MobileFilterDrawer
         isOpen={isFilterDrawerOpen}
         facets={data?.facets ?? []}
