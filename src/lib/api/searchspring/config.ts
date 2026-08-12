@@ -1,0 +1,14 @@
+const SEARCHSPRING_SITE_ID =
+  import.meta.env.VITE_SEARCHSPRING_SITE_ID;
+
+const SEARCHSPRING_RESULTS_FORMAT =
+  import.meta.env.VITE_SEARCHSPRING_RESULTS_FORMAT;
+
+const SEARCHSPRING_API_URL =
+  "https://scmq7n.a.searchspring.io/api/search/search.json";
+
+export {
+  SEARCHSPRING_SITE_ID,
+  SEARCHSPRING_RESULTS_FORMAT,
+  SEARCHSPRING_API_URL,
+};

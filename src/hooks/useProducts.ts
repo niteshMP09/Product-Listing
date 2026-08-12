@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   searchProducts,
   type SearchProductsParams,
-} from "../lib/api/searchspring";
+} from "../lib/api";
 
 export function useProducts(params: SearchProductsParams) {
   return useQuery({
