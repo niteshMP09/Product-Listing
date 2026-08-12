@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Product } from "../../types/searchspring";
+import { Link } from "react-router-dom";
 
 interface ProductCardProps {
   product: Product;
@@ -15,8 +16,8 @@ function ProductCard({ product }: ProductCardProps) {
 
   return (
     <article className="group  min-w-0">
-      <a
-        href={product.url}
+      <Link
+        to={`/products/${encodeURIComponent(product.id)}`}
         className="relative block overflow-hidden bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
       >
         <div className="aspect-3/4">
@@ -48,7 +49,7 @@ function ProductCard({ product }: ProductCardProps) {
             ))}
           </div>
         ) : null}
-      </a>
+      </Link>
 
       <div className="pt-3">
         <p className="mb-1 text-xs text-gray-500">{product.brand}</p>

@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ErrorBoundary, NotFound } from "./components";
-import ProductListingPage from "./pages";
+import ProductListingPage, { ProductDetailsPage } from "./pages";
 
 function App() {
   return (
@@ -9,6 +9,7 @@ function App() {
         <Routes>
           <Route path="/" element={<ProductListingPage />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/products/:productId" element={<ProductDetailsPage />} />
         </Routes>
       </BrowserRouter>
     </ErrorBoundary>
