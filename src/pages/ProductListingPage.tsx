@@ -95,7 +95,7 @@ function ProductListingPage() {
     <div className="flex h-screen flex-col overflow-hidden bg-gray-50 text-gray-900">
       <Header />
       <main className="mx-auto flex min-h-0 w-full max-w-360 flex-1 flex-col px-4 py-6 sm:px-6 lg:px-8">
-        <div className="mx-auto mb-3 w-full max-w-2xl shrink-0">
+        <div className="mx-auto mb-3 w-full  shrink-0">
           <SearchBar initialValue={query} onSearch={handleSearch} />
         </div>
 
