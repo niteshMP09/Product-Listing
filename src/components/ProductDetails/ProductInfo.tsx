@@ -6,25 +6,18 @@ import Button from "../common/Button";
 import ProductQuantity from "./ProductQuantity";
 import ProductBenefits from "./ProductBenefits";
 
-
-
 interface ProductInfoProps {
   product: Product;
 }
 
-function ProductInfo({
-  product,
-}: ProductInfoProps) {
-  const [quantity, setQuantity] =
-    useState(1);
+function ProductInfo({ product }: ProductInfoProps) {
+  const [quantity, setQuantity] = useState(1);
 
   const price = Number(product.price);
   const msrp = Number(product.msrp);
 
   const hasDiscount =
-    Number.isFinite(msrp) &&
-    Number.isFinite(price) &&
-    msrp > price;
+    Number.isFinite(msrp) && Number.isFinite(price) && msrp > price;
 
   return (
     <div className="flex flex-col justify-center lg:py-6">
@@ -41,10 +34,7 @@ function ProductInfo({
       {product.rating && (
         <div className="mt-5 flex items-center gap-3">
           <div className="flex items-center gap-1">
-            <span
-              aria-hidden="true"
-              className="text-base"
-            >
+            <span aria-hidden="true" className="text-base">
               ★
             </span>
 
@@ -55,9 +45,7 @@ function ProductInfo({
 
           {product.ratingCount ? (
             <>
-              <span className="text-gray-300">
-                |
-              </span>
+              <span className="text-gray-300">|</span>
 
               <span className="text-sm text-gray-500">
                 {product.ratingCount} reviews
@@ -79,8 +67,7 @@ function ProductInfo({
             </span>
 
             <span className="rounded-md bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-700">
-              Save $
-              {(msrp - price).toFixed(2)}
+              Save ${(msrp - price).toFixed(2)}
             </span>
           </>
         )}
@@ -88,16 +75,10 @@ function ProductInfo({
 
       <div className="my-8 h-px bg-gray-200" />
 
-      <ProductQuantity
-        quantity={quantity}
-        onQuantityChange={setQuantity}
-      />
+      <ProductQuantity quantity={quantity} onQuantityChange={setQuantity} />
 
       <div className="mt-6 grid gap-3 sm:grid-cols-[1fr_auto]">
-        <Button
-          type="button"
-          className="w-full px-6 py-3.5"
-        >
+        <Button type="button" className="w-full px-6 py-3.5">
           Add to cart
         </Button>
 

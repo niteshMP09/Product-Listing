@@ -1,17 +1,12 @@
 import { useSearchParams } from "react-router-dom";
 
 function useProductSorting() {
-  const [searchParams, setSearchParams] =
-    useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const sort = searchParams.get("sort") ?? "";
 
-  const handleSortChange = (
-    newSort: string,
-  ) => {
-    const params = new URLSearchParams(
-      searchParams,
-    );
+  const handleSortChange = (newSort: string) => {
+    const params = new URLSearchParams(searchParams);
 
     if (newSort) {
       params.set("sort", newSort);

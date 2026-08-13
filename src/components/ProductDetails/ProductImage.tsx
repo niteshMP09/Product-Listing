@@ -15,16 +15,11 @@ function ProductImage({
   const msrp = Number(product.msrp);
 
   const hasDiscount =
-    Number.isFinite(msrp) &&
-    Number.isFinite(price) &&
-    msrp > price;
+    Number.isFinite(msrp) && Number.isFinite(price) && msrp > price;
 
-  const discountPercentage =
-    hasDiscount
-      ? Math.round(
-          ((msrp - price) / msrp) * 100,
-        )
-      : 0;
+  const discountPercentage = hasDiscount
+    ? Math.round(((msrp - price) / msrp) * 100)
+    : 0;
 
   return (
     <div className="mx-auto w-full max-w-xl">
@@ -46,16 +41,14 @@ function ProductImage({
 
         {product.badges?.length ? (
           <div className="absolute left-4 top-4 flex flex-wrap gap-2">
-            {product.badges
-              .slice(0, 3)
-              .map((badge) => (
-                <span
-                  key={`${badge.tag}-${badge.value}`}
-                  className="rounded-md bg-white px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-gray-900 shadow-sm"
-                >
-                  {badge.value}
-                </span>
-              ))}
+            {product.badges.slice(0, 3).map((badge) => (
+              <span
+                key={`${badge.tag}-${badge.value}`}
+                className="rounded-md bg-white px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-gray-900 shadow-sm"
+              >
+                {badge.value}
+              </span>
+            ))}
           </div>
         ) : null}
 

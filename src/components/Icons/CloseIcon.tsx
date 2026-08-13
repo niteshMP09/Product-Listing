@@ -2,9 +2,7 @@ interface CloseIconProps {
   className?: string;
 }
 
-function CloseIcon({
-  className = "h-5 w-5",
-}: CloseIconProps) {
+function CloseIcon({ className = "h-5 w-5" }: CloseIconProps) {
   return (
     <svg
       viewBox="0 0 24 24"

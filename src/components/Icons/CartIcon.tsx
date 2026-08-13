@@ -2,9 +2,7 @@ interface CartIconProps {
   className?: string;
 }
 
-function CartIcon({
-  className = "h-5 w-5",
-}: CartIconProps) {
+function CartIcon({ className = "h-5 w-5" }: CartIconProps) {
   return (
     <svg
       viewBox="0 0 24 24"

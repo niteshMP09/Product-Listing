@@ -4,27 +4,17 @@ const SESSION_ID_COOKIE = "ssSessionId";
 function getCookie(name: string): string | null {
   const cookies = document.cookie.split("; ");
 
-  const cookie = cookies.find((item) =>
-    item.startsWith(`${name}=`),
-  );
+  const cookie = cookies.find((item) => item.startsWith(`${name}=`));
 
   if (!cookie) {
     return null;
   }
 
-  return decodeURIComponent(
-    cookie.substring(name.length + 1),
-  );
+  return decodeURIComponent(cookie.substring(name.length + 1));
 }
 
-function setCookie(
-  name: string,
-  value: string,
-  maxAge?: number,
-): void {
-  const maxAgePart = maxAge
-    ? `; max-age=${maxAge}`
-    : "";
+function setCookie(name: string, value: string, maxAge?: number): void {
+  const maxAgePart = maxAge ? `; max-age=${maxAge}` : "";
 
   document.cookie =
     `${name}=${encodeURIComponent(value)}` +
@@ -32,8 +22,7 @@ function setCookie(
 }
 
 function getOrCreateUserId(): string {
-  const existingUserId =
-    getCookie(USER_ID_COOKIE);
+  const existingUserId = getCookie(USER_ID_COOKIE);
 
   if (existingUserId) {
     return existingUserId;
@@ -41,18 +30,13 @@ function getOrCreateUserId(): string {
 
   const userId = crypto.randomUUID();
 
-  setCookie(
-    USER_ID_COOKIE,
-    userId,
-    60 * 60 * 24 * 365,
-  );
+  setCookie(USER_ID_COOKIE, userId, 60 * 60 * 24 * 365);
 
   return userId;
 }
 
 function getOrCreateSessionId(): string {
-  const existingSessionId =
-    getCookie(SESSION_ID_COOKIE);
+  const existingSessionId = getCookie(SESSION_ID_COOKIE);
 
   if (existingSessionId) {
     return existingSessionId;
@@ -60,10 +44,7 @@ function getOrCreateSessionId(): string {
 
   const sessionId = crypto.randomUUID();
 
-  setCookie(
-    SESSION_ID_COOKIE,
-    sessionId,
-  );
+  setCookie(SESSION_ID_COOKIE, sessionId);
 
   return sessionId;
 }
@@ -74,13 +55,10 @@ function createPageLoadId(): string {
 
 export function getSearchspringHeaders() {
   return {
-    "searchspring-session-id":
-      getOrCreateSessionId(),
+    "searchspring-session-id": getOrCreateSessionId(),
 
-    "searchspring-user-id":
-      getOrCreateUserId(),
+    "searchspring-user-id": getOrCreateUserId(),
 
-    "searchspring-page-load-id":
-      createPageLoadId(),
+    "searchspring-page-load-id": createPageLoadId(),
   };
 }

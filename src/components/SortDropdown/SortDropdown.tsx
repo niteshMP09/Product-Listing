@@ -6,11 +6,7 @@ interface SortDropdownProps {
   onChange: (value: string) => void;
 }
 
-function SortDropdown({
-  options,
-  value,
-  onChange,
-}: SortDropdownProps) {
+function SortDropdown({ options, value, onChange }: SortDropdownProps) {
   return (
     <div className="flex items-center gap-2">
       <label
@@ -23,20 +19,14 @@ function SortDropdown({
       <select
         id="sort-products"
         value={value}
-        onChange={(event) =>
-          onChange(event.target.value)
-        }
+        onChange={(event) => onChange(event.target.value)}
         className="h-10 rounded-lg border border-gray-300 bg-white px-3 text-sm text-gray-900 outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
       >
         {options.map((option) => {
-          const optionValue =
-            `${option.field}:${option.direction}`;
+          const optionValue = `${option.field}:${option.direction}`;
 
           return (
-            <option
-              key={optionValue}
-              value={optionValue}
-            >
+            <option key={optionValue} value={optionValue}>
               {option.label}
             </option>
           );

@@ -23,17 +23,11 @@ function NavigationLink({
           : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
       }`
     : `text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 ${
-        isActive
-          ? "text-gray-900"
-          : "text-gray-600 hover:text-gray-900"
+        isActive ? "text-gray-900" : "text-gray-600 hover:text-gray-900"
       }`;
 
   return (
-    <Link
-      to={to}
-      onClick={onClick}
-      className={className}
-    >
+    <Link to={to} onClick={onClick} className={className}>
       {children}
     </Link>
   );

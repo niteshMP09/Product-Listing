@@ -2,9 +2,7 @@ interface HeartIconProps {
   className?: string;
 }
 
-function HeartIcon({
-  className = "h-5 w-5",
-}: HeartIconProps) {
+function HeartIcon({ className = "h-5 w-5" }: HeartIconProps) {
   return (
     <svg
       viewBox="0 0 24 24"

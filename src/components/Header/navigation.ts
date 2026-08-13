@@ -22,10 +22,7 @@ export const navigationItems: NavigationItem[] = [
   },
 ];
 
-export const createFilterUrl = (
-  field: string,
-  value: string,
-) => {
+export const createFilterUrl = (field: string, value: string) => {
   const params = new URLSearchParams();
 
   params.set(`filter.${field}`, value);

@@ -2,9 +2,7 @@ interface SkeletonProps {
   className?: string;
 }
 
-function Skeleton({
-  className = "",
-}: SkeletonProps) {
+function Skeleton({ className = "" }: SkeletonProps) {
   return (
     <div
       aria-hidden="true"

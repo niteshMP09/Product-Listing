@@ -2,9 +2,7 @@ interface MenuIconProps {
   className?: string;
 }
 
-function MenuIcon({
-  className = "h-5 w-5",
-}: MenuIconProps) {
+function MenuIcon({ className = "h-5 w-5" }: MenuIconProps) {
   return (
     <svg
       viewBox="0 0 24 24"

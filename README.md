@@ -106,31 +106,31 @@ This project was developed as a frontend engineering assignment focused on **fro
 
 ### 🎨 Frontend
 
-| Technology | Description |
-| --- | --- |
-| ⚛️ React | Component-based UI development |
-| 🔷 TypeScript | Static typing and safer application development |
-| ⚡ Vite | Development server and production build tooling |
-| 🎨 Tailwind CSS | Utility-first responsive styling |
-| 🧭 React Router | Client-side routing and URL state |
+| Technology              | Description                                                      |
+| ----------------------- | ---------------------------------------------------------------- |
+| ⚛️ React                | Component-based UI development                                   |
+| 🔷 TypeScript           | Static typing and safer application development                  |
+| ⚡ Vite                 | Development server and production build tooling                  |
+| 🎨 Tailwind CSS         | Utility-first responsive styling                                 |
+| 🧭 React Router         | Client-side routing and URL state                                |
 | 🧠 TanStack React Query | Server-state management, caching, retries, and request lifecycle |
 
 ### 🔎 API
 
-| Technology | Description |
-| --- | --- |
-| Searchspring Search API | Product search, sorting, pagination, and facets |
-| `resultsFormat=native` | JSON response format |
-| Site ID `scmq7n` | Searchspring site identifier used for the assignment |
+| Technology              | Description                                          |
+| ----------------------- | ---------------------------------------------------- |
+| Searchspring Search API | Product search, sorting, pagination, and facets      |
+| `resultsFormat=native`  | JSON response format                                 |
+| Site ID `scmq7n`        | Searchspring site identifier used for the assignment |
 
 ### 🛠️ Development
 
-| Tool | Description |
-| --- | --- |
-| ESLint | Code quality and linting |
-| TypeScript | Type checking |
-| Git | Version control |
-| GitHub | Source code repository |
+| Tool       | Description              |
+| ---------- | ------------------------ |
+| ESLint     | Code quality and linting |
+| TypeScript | Type checking            |
+| Git        | Version control          |
+| GitHub     | Source code repository   |
 
 ---
 
@@ -298,7 +298,6 @@ https://github.com/niteshMP09/Product-Listing
 
 ---
 
-
 ## 🖼️ Snapshots
 
 ![📊 Listing Preview](/public/Listing.png)
@@ -333,3 +332,4 @@ This project focuses on demonstrating:
 ## ❤️ Built With
 
 Built with **React, TypeScript, Tailwind CSS, TanStack React Query, React Router, and the Searchspring Search API**.
+```

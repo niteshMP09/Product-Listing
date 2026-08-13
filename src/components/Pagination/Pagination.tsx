@@ -6,34 +6,16 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-function Pagination({
-  pagination,
-  onPageChange,
-}: PaginationProps) {
-  const {
-    currentPage,
-    totalPages,
-    previousPage,
-    nextPage,
-  } = pagination;
+function Pagination({ pagination, onPageChange }: PaginationProps) {
+  const { currentPage, totalPages, previousPage, nextPage } = pagination;
 
   const pages: number[] = [];
 
-  const start = Math.max(
-    1,
-    currentPage - 2,
-  );
+  const start = Math.max(1, currentPage - 2);
 
-  const end = Math.min(
-    totalPages,
-    currentPage + 2,
-  );
+  const end = Math.min(totalPages, currentPage + 2);
 
-  for (
-    let page = start;
-    page <= end;
-    page += 1
-  ) {
+  for (let page = start; page <= end; page += 1) {
     pages.push(page);
   }
 
@@ -67,10 +49,7 @@ function Pagination({
             1
           </Button>
 
-          <span
-            className="px-1 text-gray-400"
-            aria-hidden="true"
-          >
+          <span className="px-1 text-gray-400" aria-hidden="true">
             ...
           </span>
         </>
@@ -78,21 +57,14 @@ function Pagination({
 
       {/* Page numbers */}
       {pages.map((page) => {
-        const isCurrentPage =
-          page === currentPage;
+        const isCurrentPage = page === currentPage;
 
         return (
           <Button
             key={page}
             type="button"
-            aria-current={
-              isCurrentPage
-                ? "page"
-                : undefined
-            }
-            onClick={() =>
-              onPageChange(page)
-            }
+            aria-current={isCurrentPage ? "page" : undefined}
+            onClick={() => onPageChange(page)}
             className={`min-w-10 rounded-lg border px-3 py-2 text-sm ${
               isCurrentPage
                 ? "border-gray-900 bg-gray-900 text-white hover:bg-gray-900"
@@ -107,18 +79,13 @@ function Pagination({
       {/* Last page */}
       {end < totalPages && (
         <>
-          <span
-            className="px-1 text-gray-400"
-            aria-hidden="true"
-          >
+          <span className="px-1 text-gray-400" aria-hidden="true">
             ...
           </span>
 
           <Button
             type="button"
-            onClick={() =>
-              onPageChange(totalPages)
-            }
+            onClick={() => onPageChange(totalPages)}
             className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
           >
             {totalPages}

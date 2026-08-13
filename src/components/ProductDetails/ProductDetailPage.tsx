@@ -4,7 +4,6 @@ import Header from "../Header";
 import Skeleton from "../common/Skeleton";
 import ProductDetails from "./ProductDetails";
 
-
 function ProductDetailPage() {
   const { productId } = useParams<{
     productId: string;
@@ -32,9 +31,7 @@ function ProductDetailPage() {
         <Header />
 
         <main className="flex min-h-[70vh] flex-col items-center justify-center px-4 text-center">
-          <h1 className="text-2xl font-semibold">
-            Product not found
-          </h1>
+          <h1 className="text-2xl font-semibold">Product not found</h1>
 
           <p className="mt-2 max-w-md text-sm text-gray-500">
             {error instanceof Error

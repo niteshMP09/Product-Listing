@@ -1,7 +1,3 @@
-export {
-  searchProducts,
-} from "./searchspring";
+export { searchProducts } from "./searchspring";
 
-export type {
-  SearchProductsParams,
-} from "./searchspring";
+export type { SearchProductsParams } from "./searchspring";

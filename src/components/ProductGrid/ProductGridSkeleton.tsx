@@ -4,9 +4,7 @@ interface ProductGridSkeletonProps {
   count?: number;
 }
 
-function ProductGridSkeleton({
-  count = 8,
-}: ProductGridSkeletonProps) {
+function ProductGridSkeleton({ count = 8 }: ProductGridSkeletonProps) {
   return (
     <div
       className="
@@ -22,17 +20,11 @@ function ProductGridSkeleton({
       aria-label="Loading products"
       role="status"
     >
-      {Array.from({ length: count }).map(
-        (_, index) => (
-          <ProductCardSkeleton
-            key={index}
-          />
-        ),
-      )}
+      {Array.from({ length: count }).map((_, index) => (
+        <ProductCardSkeleton key={index} />
+      ))}
 
-      <span className="sr-only">
-        Loading products...
-      </span>
+      <span className="sr-only">Loading products...</span>
     </div>
   );
 }

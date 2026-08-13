@@ -9,18 +9,12 @@ interface ProductDetailsProps {
   product: Product;
 }
 
-function ProductDetails({
-  product,
-}: ProductDetailsProps) {
-  const [imageError, setImageError] =
-    useState(false);
+function ProductDetails({ product }: ProductDetailsProps) {
+  const [imageError, setImageError] = useState(false);
 
   return (
     <main className="mx-auto max-w-360 px-4 py-8 sm:px-6 lg:px-8">
-      <nav
-        aria-label="Breadcrumb"
-        className="mb-8"
-      >
+      <nav aria-label="Breadcrumb" className="mb-8">
         <ol className="flex items-center gap-2 text-sm">
           <li>
             <Link
@@ -31,10 +25,7 @@ function ProductDetails({
             </Link>
           </li>
 
-          <li
-            aria-hidden="true"
-            className="text-gray-300"
-          >
+          <li aria-hidden="true" className="text-gray-300">
             /
           </li>
 
@@ -50,9 +41,7 @@ function ProductDetails({
         <ProductImage
           product={product}
           imageError={imageError}
-          onImageError={() =>
-            setImageError(true)
-          }
+          onImageError={() => setImageError(true)}
         />
 
         <ProductInfo product={product} />

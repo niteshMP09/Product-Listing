@@ -7,10 +7,7 @@ interface MobileFilterDrawerProps {
   isOpen: boolean;
   facets: Facet[];
   selectedFilters: Record<string, string[]>;
-  onSelect: (
-    field: string,
-    value: string,
-  ) => void;
+  onSelect: (field: string, value: string) => void;
   onClose: () => void;
   onClearAll: () => void;
 }
@@ -30,27 +27,19 @@ function MobileFilterDrawer({
       return;
     }
 
-    const handleEscape = (
-      event: KeyboardEvent,
-    ) => {
+    const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         onClose();
       }
     };
 
-    document.addEventListener(
-      "keydown",
-      handleEscape,
-    );
+    document.addEventListener("keydown", handleEscape);
 
     document.body.style.overflow = "hidden";
     closeButtonRef.current?.focus();
 
     return () => {
-      document.removeEventListener(
-        "keydown",
-        handleEscape,
-      );
+      document.removeEventListener("keydown", handleEscape);
 
       document.body.style.overflow = "";
     };
@@ -61,10 +50,7 @@ function MobileFilterDrawer({
   }
 
   return (
-    <div
-      className="fixed inset-0 z-50 bg-black/40"
-      role="presentation"
-    >
+    <div className="fixed inset-0 z-50 bg-black/40" role="presentation">
       <button
         type="button"
         aria-label="Close filters"
@@ -91,9 +77,7 @@ function MobileFilterDrawer({
             aria-label="Close filters"
             className="h-9 w-9 rounded-full p-0 text-xl text-gray-500 hover:bg-gray-100 hover:text-gray-900"
           >
-            <span aria-hidden="true">
-              ×
-            </span>
+            <span aria-hidden="true">×</span>
           </Button>
         </div>
         <div className="flex-1 overflow-y-auto px-5">
@@ -101,11 +85,7 @@ function MobileFilterDrawer({
             <FilterSection
               key={facet.field}
               facet={facet}
-              selectedValues={
-                selectedFilters[
-                  facet.field
-                ] ?? []
-              }
+              selectedValues={selectedFilters[facet.field] ?? []}
               onSelect={onSelect}
             />
           ))}

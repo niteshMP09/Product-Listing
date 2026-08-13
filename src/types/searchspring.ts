@@ -109,7 +109,4 @@ export interface SearchResponse {
   merchandising?: unknown;
 }
 
-export type SelectedFilters = Record<
-  string,
-  string[]
->;
+export type SelectedFilters = Record<string, string[]>;
