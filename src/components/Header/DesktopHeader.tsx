@@ -23,7 +23,7 @@ function DesktopHeader({ cartCount, wishlistCount }: DesktopHeaderProps) {
         className="shrink-0 text-lg font-bold tracking-tight text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
         aria-label="Product Store home"
       >
-        Product Stores
+        Product Store
       </Link>
       <nav aria-label="Main navigation" className="flex items-center gap-6">
         {navigationItems.map((item) => (
